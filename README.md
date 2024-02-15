@@ -23,6 +23,9 @@ The unpredictable nature of epileptic seizures imposes severe limitations on the
 ## Methods:
 1.	Data Acquisition: 
     - Collect and curate EEG data from patients with naturally occurring epilepsy, categorizing it into interictal, preictal, ictal, and postictal states. we will expermint with [Siena Scalp EEG Database](https://www.physionet.org/content/siena-scalp-eeg/1.0.0/).
+        ```bash
+        wget -r -N -c -np https://physionet.org/files/siena-scalp-eeg/1.0.0/
+        ```
     - Meta-EEG of Siena Scalp EEG Database v1.0.0
     ![alt text](image-1.png)
      [Muskan Gupta, Rishita Anand Sachdeva, Esha Gupta, Palak Handa, & Nidhi Goel. (2022). Meta-EEG of Siena Scalp EEG Database v1.0.0 [Data set]. Zenodo. https://doi.org/10.5281/zenodo.6061290]
