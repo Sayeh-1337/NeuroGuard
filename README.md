@@ -109,9 +109,11 @@ You need to have Anaconda distribution installed to create virtual environments 
     Install the required packages by running:
 
     ```bash
-    conda install pandas numpy matplotlib seaborn scikit-learn plotly scipy sweetviz
+    conda install pandas numpy matplotlib seaborn scikit-learn plotly scipy sweetviz librosa
     ```
-
+    ```bash
+    conda install --channel=conda-forge --name=base conda-libmamba-solver
+    ```
 5. **Launch Jupyter Notebook**
 
     Start Jupyter Notebook by running:
