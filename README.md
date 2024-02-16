@@ -116,6 +116,7 @@ You need to have Anaconda distribution installed to create virtual environments 
     ```
     ```bash
     conda install --channel=conda-forge --name=base conda-libmamba-solver
+    pip install mne
     ```
 5. **Launch Jupyter Notebook**
 
