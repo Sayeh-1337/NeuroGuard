@@ -1,3 +1,9 @@
 # Ignore Dataset Directories due to size
 Siena-Scalp-EEG-Database-v1.0.0/
 Meta-EEG-of-Siena-Scalp-EEG-database/
+
+#Ignore the .gitignore file
+.gitignore
+
+#Ignore merged_data.csv
+merged_dataset.csv
