@@ -7,3 +7,10 @@ Meta-EEG-of-Siena-Scalp-EEG-database/
 
 #Ignore merged_data.csv
 merged_dataset.csv
+epilepsy-test-data.csv
+
+#Ignore expermintal code
+experminetal-codes.ipynb
+
+#Ignore model files
+epilepsy_prediction_model.pkl
