@@ -126,11 +126,44 @@ You need to have Anaconda distribution installed to create virtual environments 
     jupyter notebook
     ```
 
-    This will open a new tab in your web browser where you can navigate to the notebook file (`analysis_script.ipynb`) and open it.
+    This will open a new tab in your web browser where you can navigate to the notebook file (`*.ipynb`) and open it.
 
 ## Running the Notebook
 
 Follow the instructions in the notebook to run the cells and perform the analysis.
+
+> **Note:**  for DNN models, you need to install tensorflow and keras libraries. and to run the code you on  a GPU. you need to install CUDA and cuDNN libraries which is compatible with tensorflow version you are using.
+
+## Streamlit App
+
+You can also run the Streamlit app to simulate and show the results. To do so, follow these steps:
+
+1. **Install Streamlit**
+
+    Install Streamlit by running:
+
+    ```bash
+    pip install streamlit
+    ```
+    or 
+    ```bash
+    conda install -c conda-forge streamlit
+    ```
+2. **Run the Streamlit app**
+    
+    Navigate to the project directory and run the Streamlit app by running:
+    
+    ```bash
+    streamlit run app.py
+    ```
+    
+
+    you will enter the EEG data and the app will predict the state of the brain and the probability of the seizure [pre-ictal, ictal, post-ictal, normal].
+
+    the simulation of streaming the EEG data by sampling 10 sec of data and predict the state of the brain and the probability of the seizure [pre-ictal, ictal, post-ictal, normal]. you should define time cropping fo the input Data which will be sampled for each 10 sec. 
+
+    also you can select between different models to predict the state of the brain and the probability of the seizure [pre-ictal, ictal, post-ictal, normal]. [SVM, Random Forest, Balanced Random Forest, AdaBoost, XGBoost, CNN]
+    
 
 ## Built With
 
@@ -144,6 +177,8 @@ Follow the instructions in the notebook to run the cells and perform the analysi
 * Plotly
 * SciPy
 * Sweetviz
+* Librosa
+* MNE
 
 ## Authors
 
