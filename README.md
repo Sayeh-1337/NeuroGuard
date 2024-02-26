@@ -128,6 +128,8 @@ You need to have Anaconda distribution installed to create virtual environments 
 
     This will open a new tab in your web browser where you can navigate to the notebook file (`*.ipynb`) and open it.
 
+    > **Note:**  for ML and DNN models, can be created using (`DNN-experiment.ipynb`) and (`simulation-experiment.ipynb`) notebooks.
+
 ## Running the Notebook
 
 Follow the instructions in the notebook to run the cells and perform the analysis.
