@@ -11,6 +11,15 @@ epilepsy-test-data.csv
 
 #Ignore expermintal code
 experminetal-codes.ipynb
+#DNN-expermient.ipynb
 
 #Ignore model files
 epilepsy_prediction_model.pkl
+cnn_epilepsy_prediction_model.pkl
+cnn_epilepsy_prediction_model.h5
+rnn_epilepsy_prediction_model.h5
+AdaBoost_epilepsy_prediction_model.pkl
+Random Forest_epilepsy_prediction_model.pkl
+SVM_epilepsy_prediction_model.pkl
+XGBoost_epilepsy_prediction_model.pkl
+Balanced Random Forest_epilepsy_prediction_model.pkl

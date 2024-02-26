@@ -9,7 +9,8 @@ import tempfile
 import os
 from collections import OrderedDict
 import librosa
-
+import tensorflow as tf
+import pickle
 
 # Define the channel pairs and their joined names
 channel_pairs = [
@@ -20,9 +21,9 @@ channel_pairs = [
 ]
 channel_pairs_joined = ['{}-{}'.format(pair[0], pair[1]) for pair in channel_pairs]
 
-# Load the pre-trained machine learning model
-model_file = 'epilepsy_prediction_model.pkl'
-model = joblib.load(model_file)
+#cnn_model = joblib.load('cnn_epilepsy_prediction_model.pkl')
+
+
 
 # Define the target sampling rate
 target_sampling_rate = 512  # in Hz
@@ -110,7 +111,7 @@ def preprocess_raw(raw):
     return raw_clean
 
 # Function to simulate streaming data and make predictions
-def simulate_streaming_data(raw, start_time, end_time):
+def simulate_streaming_data(raw, start_time, end_time, model_name='CNN'):
     st.write("Starting Simulation")
 
     # Crop the raw data to the specified start and end time
@@ -124,7 +125,7 @@ def simulate_streaming_data(raw, start_time, end_time):
     time = preprocessed_raw.times
 
     # Define the window size for frame sampling
-    window_size = 2 # Window size in seconds
+    window_size = 10 # Window size in seconds
 
     # Calculate the number of samples in the window
     window_samples = int(window_size * target_sampling_rate)
@@ -158,12 +159,25 @@ def simulate_streaming_data(raw, start_time, end_time):
 
         frame_scaled = scaler.fit_transform(frame_df)
 
+        # Load the pre-trained machine learning model
+        with st.spinner('Model is being loaded..'):
+            model = load_model(model_name)
+        
         # Make prediction using the pre-trained model
-        prediction = model.predict(frame_scaled)[0]
+        if model_name == 'CNN':
+            frame_scaled = np.reshape(frame_scaled, (frame_scaled.shape[0], frame_scaled.shape[1], 1))
+            prediction = model.predict(frame_scaled)
+        else:
+            prediction = model.predict(frame_scaled)[0]
 
         # Map the predicted label to the corresponding class
         class_mapping = {0: 'pre-ictal', 1: 'ictal', 2: 'post-ictal', 3: 'normal'}
-        predicted_class = class_mapping[prediction]
+        if model_name == 'CNN':
+            print("Prediction: ")
+            print(np.argmax(prediction, axis=1))
+            predicted_class = class_mapping[np.argmax(prediction, axis=1)[0]]
+        else:
+            predicted_class = class_mapping[prediction]
 
         # Display the streaming data and classification result
         st.subheader("Streaming 10 secs")
@@ -175,9 +189,34 @@ def simulate_streaming_data(raw, start_time, end_time):
 def load_data(file_path):
     raw = mne.io.read_raw_edf(file_path)
     return raw
+@st.cache(allow_output_mutation=True)
+def load_model(model_name):
+    model_file = f'{model_name.lower()}_epilepsy_prediction_model.pkl'
+    model = joblib.load(model_file)
+    if model_name == 'CNN':
+        model = tf.keras.models.load_model('cnn_epilepsy_prediction_model.h5')
+    else:
+        model = joblib.load(model_file)
+    return model
 
 def main():
-    st.title("EDF Streaming Data Classification")
+    st.title("Epilepsy Detection from Streaming EEG Data - Simulation App")
+        # Set GPU device
+    # Configure TensorFlow to use GPU
+    config = tf.compat.v1.ConfigProto()
+    config.gpu_options.allow_growth = True
+    sess = tf.compat.v1.Session(config=config)
+    tf.compat.v1.keras.backend.set_session(sess)
+
+    # Print GPU devices
+    tf.test.gpu_device_name()
+    gpus = tf.config.list_physical_devices('GPU')
+    print("Num GPUs Available: ", len(gpus))
+    for gpu in gpus:
+        print(gpu)
+
+    # Add sidebar for model selection
+    model_name = st.sidebar.selectbox("Select Model", ['SVM', 'Random Forest', 'Balanced Random Forest', 'XGBoost', 'AdaBoost', 'CNN'])
 
     # File upload and user input
     uploaded_file = st.file_uploader("Upload EDF file", type=["edf"])
@@ -199,7 +238,7 @@ def main():
         end_time = st.number_input("End Time (in seconds)", min_value=start_time, max_value=raw.times[-1], value=raw.times[-1])
 
         if st.button("Start Classification"):
-            simulate_streaming_data(raw, start_time, end_time)
+            simulate_streaming_data(raw, start_time, end_time, model_name)
 
 if __name__ == "__main__":
     main()
