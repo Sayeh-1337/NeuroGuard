@@ -32,7 +32,7 @@ The unpredictable nature of epileptic seizures imposes severe limitations on the
      [Muskan Gupta, Rishita Anand Sachdeva, Esha Gupta, Palak Handa, & Nidhi Goel. (2022). Meta-EEG of Siena Scalp EEG Database v1.0.0 [Data set]. Zenodo. https://doi.org/10.5281/zenodo.6061290]
 
 2.	Feature Engineering: 
-    - Extract relevant features from EEG signals that discriminate between preictal and other states.
+    - Extract relevant features from EEG signals that discriminate between preictal and other states using Cepstral Analysis.
 
 3.	Model Development:
     - Employ various ML algorithms (e.g., SVM, Random Forest, LSTM networks) to classify the brain states.
