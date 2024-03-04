@@ -1,11 +1,12 @@
 # NeuroGuard
 ![alt text](NeuroGuard.png)
+
 ML-Based Seizure Prognosis and Prevention via Transcutaneous Auricular Vagus Nerve Stimulation
 
 ## Tutorial Video
 Watch this YouTube video for a tutorial and overview explanation of the data analysis:
 
-[NeuroGuard Tutorial](https://youtu.be/)
+[NeuroGuard Tutorial](https://youtu.be/mP3sNSmnhqA)
 
 
 
